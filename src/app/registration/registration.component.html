@@ -1,0 +1,94 @@
+<div class="container mt-1">
+    <div class="row">
+        <div class="col-md-13 offset-md-1">
+            <div class="card ">
+                <div class="card-header fw-bold">
+                    User Registration
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="registerUser()" #registrationForm="ngForm">
+                        <div class="form-group fw-bold">
+                            <label for="email">Email<span class="mandatory">*</span></label>
+                            <input type="email" id="email" name="email" class="form-control" [(ngModel)]="user['email']"
+                                required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}">
+                            <div class="error-message"
+                                *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched">
+                                Invalid email format
+                            </div>
+                        </div>
+                        <div class="form-group fw-bold">
+                            <label for="password">Password<span class="mandatory">*</span></label>
+                            <input type="password" id="password" name="password" class="form-control"
+                                [(ngModel)]="user['password']" required minlength="10"
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$">
+                            <div class="error-message"
+                                *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched">
+                                Password must be at least 10 characters and include at least one lowercase, one
+                                uppercase, one digit, and one special character.
+                            </div>
+                        </div>
+                        <div class="form-group fw-bold">
+                            <label for="confirmPassword">Confirm Password<span class="mandatory">*</span></label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
+                                [(ngModel)]="user['confirmPassword']" required>
+                            <div class="error-message"
+                                *ngIf="registrationForm.controls['confirmPassword'].invalid && (registrationForm.controls['confirmPassword'].dirty || registrationForm.controls['confirmPassword'].touched)">
+                                Passwords do not match
+                            </div>
+                        </div>
+
+                        <div class="form-group fw-bold">
+                            <label for="firstName">First Name<span class="mandatory">*</span></label>
+                            <input type="text" id="firstName" name="firstName" class="form-control"
+                                [(ngModel)]="user['firstName']" required>
+                            <div class="error-message"
+                                *ngIf="registrationForm.controls['firstName'].invalid && registrationForm.controls['firstName'].touched">
+                                First Name is required.
+                            </div>
+                        </div>
+
+                        <div class="form-group fw-bold">
+                            <label for="middleName">Middle Name</label>
+                            <input type="text" id="middleName" name="middleName" class="form-control"
+                                [(ngModel)]="user['middleName']">
+                        </div>
+
+                        <div class="form-group fw-bold">
+                            <label for="lastName">Last Name<span class="mandatory">*</span></label>
+                            <input type="text" id="lastName" name="lastName" class="form-control"
+                                [(ngModel)]="user['lastName']" required>
+                            <div class="error-message"
+                                *ngIf="registrationForm.controls['lastName'].invalid && registrationForm.controls['lastName'].touched">
+                                Last Name is required.
+                            </div>
+                        </div>
+
+                        <div class="form-group fw-bold">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
+                                [(ngModel)]="user['phoneNumber']" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                            <div class="error-message"
+                                *ngIf="registrationForm.controls['phoneNumber'].invalid && registrationForm.controls['phoneNumber'].touched">
+                                Phone Number must be in the format 999-999-9999.
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Register</button>
+                        <div class="success-message mt-2" *ngIf="isRegistered">
+                            <ng-container *ngIf="registrationForm.valid">
+                                <strong>Registration successful!</strong>
+                            </ng-container>
+                            <ng-container *ngIf="!registrationForm.valid">
+                                Registration failed. Please check your inputs.
+                            </ng-container>
+                        </div>
+
+                        <div class="error-message mt-2" *ngIf="isRegistered === false && !registrationForm.valid">
+                            Please enter all required input fields.
+                          </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
